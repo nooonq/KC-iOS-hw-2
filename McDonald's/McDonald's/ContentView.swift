@@ -7,15 +7,28 @@
 
 import SwiftUI
 
+
+extension Color {
+    static let Rred = Color(red: 191 / 255, green: 36 / 255, blue: 36 / 255)
+    static let sooRed = Color(red: 217 / 255, green: 26 / 255, blue: 26 / 255)
+    static let darkred = Color(red: 115 / 255, green: 6 / 255, blue: 6 / 255)
+    static let oryellow = Color(red: 254 / 255, green: 201 / 255, blue: 64 / 255)
+    static let Notwhite = Color(red: 246 / 255, green: 255 / 255, blue: 245 / 255)
+    static let musterdmoreyellow = Color(red: 242 / 255, green: 183 / 255, blue: 5 / 255)
+
+}
+
+
+
 struct ContentView: View {
     
-    @State private var quantity0: Int = 0
-    @State private var quantity1: Int = 0
-    @State private var quantity2: Int = 0
-    @State private var quantity3: Int = 0
-    @State private var quantity4: Int = 0
+    @State var quantity0: Int = 0
+    @State var quantity1: Int = 0
+    @State var quantity2: Int = 0
+    @State var quantity3: Int = 0
+    @State var quantity4: Int = 0
     @State var amount = ""
-    @State var total = ""
+    @State var total: Double = 0.0
     @State var comment = ""
 
 
@@ -23,9 +36,16 @@ struct ContentView: View {
     var body: some View {
         
         ZStack{
+            
+            Color.Rred
+                .ignoresSafeArea()
+            
+            
             VStack{
                 Text("McDonald's")
                     .font(Font.custom("Roboto-Bold", size: 40))
+                    .foregroundColor(.oryellow)
+                    .padding()
                     
                                 
                                     
@@ -33,16 +53,50 @@ struct ContentView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 100)
+                
+                
+                
+                HStack{
+                                        
+                    Text("Your amount:")
+                        .font(Font.custom("Roboto-Regular", size: 18))
+                        .foregroundColor(.oryellow)
+                        
+                    
+                        Spacer()
+                    
+                    
+                    
+                    TextField("0.00 KD", text: $amount)
+                        .font(Font.custom("Roboto-Regular", size: 18))
+                        .padding()
+                        .frame(width: 100, height: 40, alignment: .center)
+                        .background(Color.oryellow)
+                        .cornerRadius(10)
+                        .multilineTextAlignment(.center)
+                                 
+                       //stopped at textfield . still havent figured out how to do the pricez and all that
+                                        
+                                        
+                                    
+                }.padding(.horizontal)
+                    .padding(.top)
+                    
+                
+                
+                
             
             Text("MENU")
                 .font(Font.custom("Roboto-Light", size: 23))
-                .padding(.top,20)
+                .padding(.top)
+                .foregroundColor(.oryellow)
                 
                 
                 VStack{
                     HStack{
                         
-                        Stepper("Double cheese burger", value: $quantity0, in: 0...100, step: 1)
+                        Stepper("Double cheese burger    0.85KD ", value: $quantity0, in: 0...100, step: 1)
+                            .font(Font.custom("Roboto-Regular", size: 15))
                         
                         Text("\(quantity0)")
                         
@@ -56,7 +110,21 @@ struct ContentView: View {
                     
                     HStack{
                         
-                        Stepper("Chicken nuggets", value: $quantity2, in: 0...100, step: 1)
+                        Stepper("Chicken nuggets \t     0.75KD", value: $quantity1, in: 0...100, step: 1)
+                            .font(Font.custom("Roboto-Regular", size: 15))
+                        
+                        Text("\(quantity1)")
+                        
+                       
+                        
+                        
+                    }.padding(.horizontal)
+                    
+                    
+                    HStack{
+                        
+                        Stepper("Coca-cola \t \t \t     0.55KD", value: $quantity2, in: 0...100, step: 1)
+                            .font(Font.custom("Roboto-Regular", size: 15))
                         
                         Text("\(quantity2)")
                         
@@ -65,23 +133,12 @@ struct ContentView: View {
                         
                     }.padding(.horizontal)
                     
-                    
-                    HStack{
-                        
-                        Stepper("Coca-cola", value: $quantity3, in: 0...100, step: 1)
-                        
-                        Text("\(quantity3)")
-                        
-                       
-                        
-                        
-                    }.padding(.horizontal)
-                    
                     HStack{
                                                 
-            Stepper("Fries", value: $quantity1, in: 0...100, step: 1)
+            Stepper("Fries \t \t \t \t     0.80KD", value: $quantity3, in: 0...100, step: 1)
+                            .font(Font.custom("Roboto-Regular", size: 15))
                                                 
-                Text("\(quantity1)")
+                Text("\(quantity3)")
                                                 
                                                
                                                 
@@ -90,7 +147,8 @@ struct ContentView: View {
 
                     HStack{
                         
-                        Stepper("BBQ", value: $quantity4, in: 0...100, step: 1)
+                        Stepper("BBQ \t \t \t \t     0.05KD", value: $quantity4, in: 0...100, step: 1)
+                            .font(Font.custom("Roboto-Regular", size: 15))
                         
                         Text("\(quantity4)")
                         
@@ -109,49 +167,31 @@ struct ContentView: View {
                     
                 }.padding(.top)
                     .padding(.bottom)
-                    .background(Color.red.opacity(0.1))
-                    .cornerRadius(5)
+                    .background(Color.oryellow)
+                    .cornerRadius(10)
+                    .padding(5)
         
                 VStack{
                 
-                HStack{
-                                        
-                    Text("Your amount:")
-                        
-                    
-                        Spacer()
+                
                     
                     
-                    
-                    TextField("0.00 KD", text: $amount)
-                        .padding()
-                        .frame(width: 100, height: 40, alignment: .center)
-                        .background(.red.opacity(0.2))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center)
-                                 
-                       //stopped at textfield . still havent figured out how to do the pricez and all that
-                                        
-                                        
-                                    
-                }.padding()
-                    
-                    
-                   //the if is a messssssssss and the vars are also a messsssssssssss:''''(
                     Button {
-                        total = String(totalCalc(q0: Double(quantity0) ?? 0, q1: Double(quantity1) ?? 0, q2: Double(quantity2) ?? 0, q3: Double(quantity3) ?? 0, q4: Double(quantity4) ?? 0))
+                        total = totalCalc(q0: Double(quantity0) ?? 0, q1: Double(quantity1) ?? 0, q2: Double(quantity2) ?? 0, q3: Double(quantity3) ?? 0, q4: Double(quantity4) ?? 0)
                         
-                        if total <= amount {
-                            //لم احط ٥ و التوتال ٥ مايضبط لازم احط ٥.٠ عشان يضبط
+                        if total <= (Double(amount) ?? 0) && (Double(amount) ?? 0) > 0 {
+                            //لم احط ٥ و التوتال ٥ مايضبط لازم احط ٥.٠ عشان يضط
                             comment = "Thank you:)"
                             
                         }
                         
-                        else if total >= amount || amount >= "0" {
+                        else if total >= (Double(amount) ?? 0) && (Double(amount) ?? 0) > 0 {
                             
                             comment = "You don't have enough money:("
                             
                         }
+                    
+                        
                         
                         else {
                             
@@ -166,10 +206,12 @@ struct ContentView: View {
                         
                         
                         Text("Calculate the total")
+                            .font(Font.custom("Roboto-Regular", size: 18))
                             .frame(width: 180, height: 50, alignment: .center)
                             .foregroundColor(.black)
-                            .background(.red.opacity(0.6))
+                            .background(Color.oryellow)
                             .cornerRadius(10)
+                            .padding()
                         
                    
                     
@@ -177,11 +219,17 @@ struct ContentView: View {
 
                     
                     
-                    Text("Your total is: \t \(total)")
+                    Text("Your total is: \t \(total, specifier: "%.2f")")
+                        .font(Font.custom("Roboto-Regular", size: 20))
+                        .foregroundColor(.oryellow)
+                        .padding()
+                        
                     
                     
                     Text(comment)
-                        .padding()
+                        .font(Font.custom("Roboto-Regular", size: 24))
+                        .padding(.bottom)
+                        .foregroundColor(.oryellow)
                 
                     
                     
@@ -196,7 +244,7 @@ struct ContentView: View {
     }
     func totalCalc(q0: Double, q1: Double, q2: Double, q3: Double, q4: Double ) -> Double{
         
-        return q0 + q1 + q2 + q3 + q4
+        return (q0*0.850) + (q1*0.750) + (q2*0.550) + (q3*0.800) + (q4*0.050)
         
     }
     
